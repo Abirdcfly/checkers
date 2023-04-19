@@ -9,6 +9,8 @@ export interface StoredGame {
   turn: string;
   black: string;
   red: string;
+  winner: string;
+  deadline: string;
 }
 
 const baseStoredGame: object = {
@@ -17,6 +19,8 @@ const baseStoredGame: object = {
   turn: "",
   black: "",
   red: "",
+  winner: "",
+  deadline: "",
 };
 
 export const StoredGame = {
@@ -35,6 +39,12 @@ export const StoredGame = {
     }
     if (message.red !== "") {
       writer.uint32(42).string(message.red);
+    }
+    if (message.winner !== "") {
+      writer.uint32(50).string(message.winner);
+    }
+    if (message.deadline !== "") {
+      writer.uint32(58).string(message.deadline);
     }
     return writer;
   },
@@ -60,6 +70,12 @@ export const StoredGame = {
           break;
         case 5:
           message.red = reader.string();
+          break;
+        case 6:
+          message.winner = reader.string();
+          break;
+        case 7:
+          message.deadline = reader.string();
           break;
         default:
           reader.skipType(tag & 7);
@@ -96,6 +112,16 @@ export const StoredGame = {
     } else {
       message.red = "";
     }
+    if (object.winner !== undefined && object.winner !== null) {
+      message.winner = String(object.winner);
+    } else {
+      message.winner = "";
+    }
+    if (object.deadline !== undefined && object.deadline !== null) {
+      message.deadline = String(object.deadline);
+    } else {
+      message.deadline = "";
+    }
     return message;
   },
 
@@ -106,6 +132,8 @@ export const StoredGame = {
     message.turn !== undefined && (obj.turn = message.turn);
     message.black !== undefined && (obj.black = message.black);
     message.red !== undefined && (obj.red = message.red);
+    message.winner !== undefined && (obj.winner = message.winner);
+    message.deadline !== undefined && (obj.deadline = message.deadline);
     return obj;
   },
 
@@ -135,6 +163,16 @@ export const StoredGame = {
       message.red = object.red;
     } else {
       message.red = "";
+    }
+    if (object.winner !== undefined && object.winner !== null) {
+      message.winner = object.winner;
+    } else {
+      message.winner = "";
+    }
+    if (object.deadline !== undefined && object.deadline !== null) {
+      message.deadline = object.deadline;
+    } else {
+      message.deadline = "";
     }
     return message;
   },

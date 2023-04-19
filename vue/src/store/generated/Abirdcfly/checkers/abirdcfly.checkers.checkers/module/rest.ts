@@ -64,6 +64,8 @@ export interface CheckersStoredGame {
   turn?: string;
   black?: string;
   red?: string;
+  winner?: string;
+  deadline?: string;
 }
 
 export interface CheckersSystemInfo {
